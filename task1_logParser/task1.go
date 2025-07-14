@@ -1,4 +1,4 @@
-package task1_parseLog
+package task1_logParser
 
 import (
 	"fmt"
