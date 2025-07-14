@@ -1,0 +1,5 @@
+package trainingTasks
+
+func main() {
+
+}

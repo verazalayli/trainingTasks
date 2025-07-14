@@ -1,0 +1,4 @@
+[2025-07-12 12:05:34] INFO: user_id=1234 login
+[2025-07-12 12:06:15] ERROR: user_id=1234 failed to load page
+[2025-07-12 12:07:55] INFO: user_id=5678 login
+[2025-07-12 12:09:03] INFO: user_id=5678 logout
