@@ -29,6 +29,10 @@ func (r Rectangle) Area() float64 {
 	return r.width * r.height
 }
 
+func PrintArea(s Shape) {
+	fmt.Printf("Area: %.2f\n", s.Area())
+}
+
 func getFloatFromConsole() float64 {
 	reader := bufio.NewReader(os.Stdin)
 	s, _ := reader.ReadString('\n')
@@ -41,31 +45,28 @@ func getFloatFromConsole() float64 {
 }
 
 func Task3() {
-	var rectangle Rectangle
-	var circle Circle
 	reader := bufio.NewReader(os.Stdin)
-	count := 0
-	for count < 1 {
+	for {
 		fmt.Println("Enter \"Rectangle\" or \"Circle\" or \"End\"(if you want to finalise program): ")
 		input, _ := reader.ReadString('\n')
 		input = input[:len(input)-1]
 		fmt.Println("You entered:", input)
 		if input == "Rectangle" {
 			fmt.Print("Enter \"width\": ")
-			rectangle.width = getFloatFromConsole()
+			width := getFloatFromConsole()
 			fmt.Print("Enter \"height\": ")
-			rectangle.height = getFloatFromConsole()
-			fmt.Print("Area of rectangle with \"width\", \"height\": ", rectangle.Area(), "\n")
+			height := getFloatFromConsole()
+			PrintArea(Rectangle{width, height})
 		}
 		if input == "Circle" {
 			fmt.Print("Enter \"radius\": ")
-			circle.radius = getFloatFromConsole()
-			fmt.Print("Area of circle with \"radius\": ", circle.Area(), "\n")
+			radius := getFloatFromConsole()
+			PrintArea(Circle{radius})
 		}
 		if input == "End" {
-			count++
+			break
 		}
-		if input != "Rectangle" && input != "Circle" && input != "End" {
+		if input != "Rectangle" && input != "Circle" {
 			fmt.Println("Invalid input")
 		}
 	}

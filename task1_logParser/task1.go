@@ -6,11 +6,6 @@ import (
 	"strings"
 )
 
-type UsersWithoutLogin struct {
-	name   string
-	logOut bool
-}
-
 func task1() {
 	getData("server.log")
 }

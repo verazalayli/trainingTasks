@@ -23,7 +23,7 @@ func Task2() {
 			youngestUser = user
 		}
 	}
-	fmt.Println(youngestUser)
+	fmt.Printf("Youngest: %s (%d)\n", youngestUser.Name, youngestUser.Age)
 }
 
 func readJson(str string) []User {
@@ -33,5 +33,8 @@ func readJson(str string) []User {
 	}
 	var users []User
 	err = json.Unmarshal(data, &users)
+	if err != nil {
+		log.Fatal(err)
+	}
 	return users
 }

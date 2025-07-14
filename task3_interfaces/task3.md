@@ -12,7 +12,7 @@
 
 **Ввод:**
 
-```go
+```
 Rectangle{3, 4}
 Circle{radius: 2}
 ```
