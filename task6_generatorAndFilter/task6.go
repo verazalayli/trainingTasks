@@ -10,20 +10,26 @@ func Task6() {
 }
 
 func NumberGeneratorAndFilter() {
-	number := rand.IntN(100)
 	chUnfiltered := make(chan int)
 	chFiltered := make(chan int)
+
 	go func() {
-		chUnfiltered <- number
+		for {
+			chUnfiltered <- rand.IntN(100) + 1
+		}
 	}()
 
 	go func() {
-		if number%2 == 0 {
-			chFiltered <- number
-		} else {
-			chFiltered <- 0
+		for num := range chUnfiltered {
+			if num%2 == 0 {
+				chFiltered <- num
+			}
 		}
 	}()
+
+	for i := 0; i < 10; i++ {
+		fmt.Printf("Even #%d: %d\n", i+1, <-chFiltered)
+	}
 
 	unfilteredNumbers := <-chUnfiltered
 	filteredNumbers := <-chFiltered

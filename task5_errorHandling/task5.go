@@ -15,11 +15,7 @@ func Task5() {
 }
 
 func divide(a, b float64) (float64, error) {
-	errZeroDivisible := errors.New("cannot divide zero")
 	errZeroDivider := errors.New("cannot divide by zero")
-	if a == 0 {
-		return 0, errZeroDivisible
-	}
 	if b == 0 {
 		return 0, errZeroDivider
 	}
