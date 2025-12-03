@@ -22,8 +22,8 @@ import (
 //
 //- использовать `errgroup`.
 
-func task1() {
-	urls := []string{"http://...", "..."}
+func Task1() {
+	urls := []string{"http://a.com/a", "http://b.com/b", "http://c.com/c"}
 	ctx := context.Background()
 
 	r, err := workerPool(ctx, urls)
@@ -36,16 +36,21 @@ func task1() {
 }
 
 func workerPool(ctx context.Context, urls []string) ([]string, error) {
-	_, ctx = errgroup.WithContext(context.Background())
+	g, ctx := errgroup.WithContext(ctx)
 	sem := make(chan struct{}, 5)
 	results := make([]string, len(urls))
 	var mu sync.Mutex
-	var wg sync.WaitGroup
 
-	for _, url := range urls {
-		sem <- struct{}{}
-		wg.Add(1)
-		go func() error {
+	for _, u := range urls {
+		url := u
+		g.Go(func() error {
+
+			select {
+			case sem <- struct{}{}:
+			case <-ctx.Done():
+				return ctx.Err()
+			}
+
 			defer func() { <-sem }()
 
 			body, err := fetch(ctx, url)
@@ -57,13 +62,13 @@ func workerPool(ctx context.Context, urls []string) ([]string, error) {
 			results = append(results, body)
 			mu.Unlock()
 
-			wg.Done()
-
 			return nil
-		}()
+		})
 	}
 
-	wg.Wait()
+	if err := g.Wait(); err != nil {
+		return nil, err
+	}
 
 	return results, nil
 }
