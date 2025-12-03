@@ -1,7 +1,7 @@
 package main
 
 import (
-	"awesomeProject1/task3_interfaces"
+	"awesomeProject1/old/task3_interfaces"
 )
 
 func main() {
