@@ -1,5 +1,7 @@
 package main
 
-func main() {
+import "awesomeProject1/concurrency"
 
+func main() {
+	concurrency.Task5()
 }
